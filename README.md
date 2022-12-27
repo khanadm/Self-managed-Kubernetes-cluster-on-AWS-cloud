@@ -39,6 +39,57 @@ Install docker as Kubernetes service like kube-apiserver, kube-controller-manage
 sudo yum install docker -y
 ```
 
+After installation done enable docker service so that after os reboot docker service will be in running state.
+
+```
+sudo systemctl enable docker --now
+```
+
+Now we have to configure yum so that yum can able to download and install kubeadm and kubelet.
+
+
+For this create a repo file with any name inside **/etc/yum.repos.d/** using ```sudo vim /etc/yum.repos.d/kubernetes.repo```
+
+Write below content inside file:
+
+
+```
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+```
+
+Now, press Esc key to exit from insert mode then type :wq!
+
+
+Install kubeadm that will create a k8s cluster. Also, kubectl and kubelet will also be installed as dependency
+
+```
+sudo yum install kubeadm -y
+```
+
+
+Now, download all docker images required for each service like kube-apiserver, kube-controller-manager, kube-scheduler, etc using:
+
+```
+sudo kubeadm config images pull
+```
+
+Enable kubelet using ```sudo systemctl enable kubelet --now```
+
+
+Now, install **iproute-tc** using ```sudo yum install iproute-tc -y```
+
+
+Let's create kubernetes cluster using ```sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem```
+
+
+Here in my case, i used t2.micro instance type which provides 1 CPU and 1 GB RAM but At least 2 CPU and 2 GB RAM is recommended by Kubernetes. So to 
+work with t2.micro instance type we passed **--ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem**
+
 
 
 
