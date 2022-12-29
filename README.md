@@ -217,19 +217,61 @@ Click Create database
 
 
 
+Now, time to create deployment using YAML file
 
 
 
+```
+ sudo vim wordpress.yml
+```
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+      - image: wordpress:latest
+        name: wordpress
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: database-1.c9qq8he3gv6d.ap-south-1.rds.amazonaws.com
+        - name: WORDPRESS_DB_USER
+          value: admin
+        - name: WORDPRESS_DB_PASSWORD
+          value: password
+        - name: WORDPRESS_DB_NAME
+          value: blog
+        ports:
+        - containerPort: 80
+          name: wordpress
+```
 
 
 
+![wordpress.yml](https://user-images.githubusercontent.com/106643382/209914578-da1bcd5a-c924-4a42-a7f7-6439d50860d1.png)
 
 
+Now we have create a service file called service.yml 
 
-
-
-
-
+```
+sudo vim service.yml
+```
 
 
 
