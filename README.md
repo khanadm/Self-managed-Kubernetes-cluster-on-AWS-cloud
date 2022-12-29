@@ -177,8 +177,43 @@ Similarly, configure another slave node
 
 
 
+Now run In Master kubectl --insecure-skip-tls-verify get nodes -o wide
 
 
+
+![NODES](https://user-images.githubusercontent.com/106643382/209911383-38b1d614-239f-4377-80a2-c0a9f7f8c5b9.png "NODES")
+
+
+Deploy one WordPress website using deployment kind
+
+Before creating deployment we need to create Database because Wordpress requires WORDPRESS_DB_HOST, WORDPRESS_DB_USER, 
+WORDPRESS_DB_PASSWORD, WORDPRESS_DB_NAME else Wordpress container will exit again and again.
+
+
+So, First create a RDS(MySQL) DB from AWS console
+
+![Create databases](https://user-images.githubusercontent.com/106643382/209912295-862584dc-d5cc-4c97-a336-e2a4ba4b1ace.png "Create databases")
+
+
+Click Create database
+
+![mysql](https://user-images.githubusercontent.com/106643382/209912603-74df870e-72a7-42d6-ba88-eed56b0e5cba.png "mysql")
+
+
+
+![CREDEMITAL SETTING](https://user-images.githubusercontent.com/106643382/209912841-4c2739c2-6729-493f-9991-4183beb23092.png "CREDEMITAL SETTING")
+
+
+![secqurity group,ports](https://user-images.githubusercontent.com/106643382/209913086-3e318246-f17f-4205-9df8-82697c0b0098.png "secqurity group ,ports")
+
+
+
+![additional conf](https://user-images.githubusercontent.com/106643382/209913264-70613aa4-2ee7-48b6-8937-b942e138fa9f.png "additional conf")
+
+
+
+
+![logs](https://user-images.githubusercontent.com/106643382/209913460-cc71d9a7-7b88-4b28-90c4-07cbc1092c90.png "logs")
 
 
 
