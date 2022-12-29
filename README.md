@@ -273,6 +273,35 @@ Now we have create a service file called service.yml
 sudo vim service.yml
 ```
 
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30534
+  selector:
+    app: wordpress
+    tier: frontend
+  type: NodePort
+```               
+
+
+
+
+![Service.yml](https://user-images.githubusercontent.com/106643382/209915330-c833fe8d-4ab6-44a1-b882-b241815f81b4.png "Service.yml")
+
+
+
+
+
+
+
 
 
 
