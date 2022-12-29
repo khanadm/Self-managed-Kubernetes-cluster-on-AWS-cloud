@@ -264,7 +264,10 @@ spec:
 
 
 
-![wordpress.yml](https://user-images.githubusercontent.com/106643382/209914578-da1bcd5a-c924-4a42-a7f7-6439d50860d1.png)
+![wordpress.yml](https://user-images.githubusercontent.com/106643382/209914578-da1bcd5a-c924-4a42-a7f7-6439d50860d1.png "wordpress.yml")
+
+![database host](https://user-images.githubusercontent.com/106643382/209915872-9aac9c52-25be-4c81-9199-516e26e5bfbb.png "database host")
+
 
 
 Now we have create a service file called service.yml 
@@ -291,10 +294,10 @@ spec:
   type: NodePort
 ```               
 
+![Service.yml](https://user-images.githubusercontent.com/106643382/209915501-a2723c1a-8e83-454a-bfbe-826076108f3a.png "Service.yml")
 
 
 
-![Service.yml](https://user-images.githubusercontent.com/106643382/209915330-c833fe8d-4ab6-44a1-b882-b241815f81b4.png "Service.yml")
 
 
 
