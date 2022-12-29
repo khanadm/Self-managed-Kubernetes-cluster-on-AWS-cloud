@@ -184,7 +184,8 @@ Now run In Master kubectl --insecure-skip-tls-verify get nodes -o wide
 ![NODES](https://user-images.githubusercontent.com/106643382/209911383-38b1d614-239f-4377-80a2-c0a9f7f8c5b9.png "NODES")
 
 
-Deploy one WordPress website using deployment kind
+Step 3 Deploy one WordPress website using deployment kind
+---
 
 Before creating deployment we need to create Database because Wordpress requires WORDPRESS_DB_HOST, WORDPRESS_DB_USER, 
 WORDPRESS_DB_PASSWORD, WORDPRESS_DB_NAME else Wordpress container will exit again and again.
@@ -266,11 +267,21 @@ spec:
 
 ![wordpress.yml](https://user-images.githubusercontent.com/106643382/209914578-da1bcd5a-c924-4a42-a7f7-6439d50860d1.png "wordpress.yml")
 
+Databases Host
+
 ![database host](https://user-images.githubusercontent.com/106643382/209915872-9aac9c52-25be-4c81-9199-516e26e5bfbb.png "database host")
 
 
+Now, create deployment using kubectl create -f <FILENAME.yml>
 
-Now we have create a service file called service.yml 
+
+To check pods is running successfully or not run ```kubectl get pods -o wide```
+
+
+To describe pods run ```kubectl describe pods <POD_NAME>```
+
+
+Now we have create a service file called service.yml to expose  .
 
 ```
 sudo vim service.yml
@@ -298,18 +309,59 @@ spec:
 
 
 
+Now, create deployment using kubectl create -f <FILENAME.yml>
+
+
+To check pods is running successfully or not run ```kubectl get svc```
+
+![svc](https://user-images.githubusercontent.com/106643382/209916955-f7323a29-55a8-4b47-b07a-2344bdee38fc.png "svc")
+
+
+To describe pods run ```kubectl describe pods <POD_NAME>```
+
+Now hit publicip:31456
+
+![wordpress](https://user-images.githubusercontent.com/106643382/209917185-4bc3cbc6-7906-42e0-bd62-e0348d412be4.png "wordpress")
+
+
+Now install wordpress and create a post
+
+![PAGE](https://user-images.githubusercontent.com/106643382/209918228-a7ae6f1a-d337-4bfa-b848-7130f851f3a9.png "PAGE")
+
+#### Step-4: Connect RDS as a DB with WordPress Site
+
+Already done in step-3
+
+ #### Step-5: Migrate the data of K8S DB in RDS
+
+ Now take a dump of mysql db from any node using ```mysqldump -h <ENDPOINT> -u <USERNAME> -p <DB_NAME>```
+ 
+ 
+ mysql -h database-1.c9qq8he3gv6d.ap-south-1.rds.amazonaws.com -u admin -p blog < mydb.sql
+
+![dump](https://user-images.githubusercontent.com/106643382/209921102-b38b26fd-3ff6-40b7-9021-609865aff352.png "dump")
+
+
+Now delete db using drop database <DB_NAME> & hit publicip:31456
+
+![db deleted](https://user-images.githubusercontent.com/106643382/209921417-3861d4a3-4e1f-47a9-a694-06defba86814.png "db deleted")
 
 
 
+Wordpress is not able to access db as db is deleted. So, create a new db with same name and put dump inside this db.
+
+
+ create a new db with same name and put dump inside this db.
+
+```
+ mysql -h database-1.c9qq8he3gv6d.ap-south-1.rds.amazonaws.com -u admin -p blog < mydb.sql
+```
+
+Now again try to hit InstanceIP:30838 This time you can see yours site
 
 
 
+![RE-LOADED](https://user-images.githubusercontent.com/106643382/209922161-f7dc37b7-3cd1-4f02-9359-fc55be1c58f0.png "RE-LOADED")
 
 
-
-
-
-
-
-
-
+#### THANKYOU
